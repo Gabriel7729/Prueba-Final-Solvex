@@ -1,6 +1,6 @@
 import { WorkShopMemberRole } from "@/core/utils/enums";
 import { BaseEntity } from "./base.model";
-import { IWorkShopDay } from "./workshopday.model";
+import { WorkShopDay } from "./workshopday.model";
 import { IWorkShopMember } from "./workshopmember.model";
 
 export class WorkShop extends BaseEntity {
@@ -11,7 +11,7 @@ export class WorkShop extends BaseEntity {
   contentSupport: string = '';
   createdBy: string = 'Gabriel';
   //WorkShopDay
-  days?: IWorkShopDay;
+  days?: WorkShopDay;
   workShopDayId?: number | null;
   //WorkShopMember
   members?: IWorkShopMember;

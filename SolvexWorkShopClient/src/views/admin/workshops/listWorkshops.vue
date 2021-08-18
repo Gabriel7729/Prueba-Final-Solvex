@@ -52,11 +52,11 @@ export default class WorkShopListComponent extends Mixins<
 
     let startDate = new BTableColumn("startDate", "Fecha de inicio");
     startDate.customTemplate = false;
-    startDate.type = BTableColumnType.Date;
+    startDate.type = BTableColumnType.DateTime;
 
     let endDate = new BTableColumn("endDate", "Fecha de fin");
     endDate.customTemplate = false;
-    endDate.type = BTableColumnType.Date;
+    endDate.type = BTableColumnType.DateTime;
 
     let contentSupport = new BTableColumn("contentSupport", "Contenido de apoyo");
     contentSupport.customTemplate = false;

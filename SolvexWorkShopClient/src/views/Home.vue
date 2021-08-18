@@ -21,8 +21,8 @@
               <br />
               <small
                 ><strong
-                  >{{ element.startDate.split("T")[0] }} -
-                  {{ element.endDate.split("T")[0] }}</strong
+                  >{{ formatDate(element.startDate)}} -
+                  {{ formatDate(element.endDate) }}</strong
                 ></small
               >
             </div>
@@ -55,6 +55,10 @@ export default {
     formatSignature(element) {
       var element = element.split(" ")[0].charAt(0) + "" + element.split(" ")[1].charAt(0)
       return element;
+    },
+    formatDate(date){
+      var newDate = date.split("T")[0];
+      return newDate;
     }
   },
   async created() {

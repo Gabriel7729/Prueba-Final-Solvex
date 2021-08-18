@@ -5,7 +5,6 @@
         <span class="navbar-item title is-2">Agregar WorkShop</span>
       </div>
     </nav>
-    
 
     <form @submit.prevent="validate">
       <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
