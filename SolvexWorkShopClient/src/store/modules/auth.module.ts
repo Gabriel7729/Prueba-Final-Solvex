@@ -6,7 +6,7 @@ import { Module } from "vuex";
 const authModule: Module<any, any> = {
     state: {
         user: {
-            id:1,
+            id:2,
             name: 'Gabriel',
             lastName: 'De La Rosa',
             userName: 'admin',

@@ -3,7 +3,7 @@ import {IDocument} from "./document.model";
 import { ChangePassword, User } from "./user.model";
 import { WorkShop } from "./workshop.model";
 import { WorkShopDay } from "./workshopday.model";
-import { IWorkShopMember } from "./workshopmember.model";
+import { WorkShopMember } from "./workshopmember.model";
 
 export {
     IBase,
@@ -13,5 +13,5 @@ export {
     ChangePassword,
     WorkShop,
     WorkShopDay,
-    IWorkShopMember
+    WorkShopMember
 }

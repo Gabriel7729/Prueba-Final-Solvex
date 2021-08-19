@@ -4,14 +4,16 @@ using GenericApi.Model.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GenericApi.Model.Migrations
 {
     [DbContext(typeof(WorkShopContext))]
-    partial class WorkShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210818164759_UpdateWorkShopDay")]
+    partial class UpdateWorkShopDay
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,9 +137,9 @@ namespace GenericApi.Model.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2021, 8, 18, 17, 56, 15, 776, DateTimeKind.Unspecified).AddTicks(1713), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2021, 8, 18, 16, 47, 58, 664, DateTimeKind.Unspecified).AddTicks(7014), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            Dob = new DateTime(2021, 8, 18, 13, 56, 15, 776, DateTimeKind.Local).AddTicks(2353),
+                            Dob = new DateTime(2021, 8, 18, 12, 47, 58, 664, DateTimeKind.Local).AddTicks(7640),
                             DocumentType = 0,
                             DocumentTypeValue = "00000000000",
                             Gender = 0,
@@ -224,8 +226,8 @@ namespace GenericApi.Model.Migrations
                     b.Property<DateTimeOffset?>("DeletedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset?>("EndHour")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime?>("EndHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Mode")
                         .HasColumnType("int");
@@ -233,8 +235,8 @@ namespace GenericApi.Model.Migrations
                     b.Property<string>("ModeLocation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("StartHour")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("StartHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");

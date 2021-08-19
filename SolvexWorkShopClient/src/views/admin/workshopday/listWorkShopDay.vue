@@ -2,7 +2,7 @@
   <div>
 
     <sx-buefy-table :config="tableConfig">
-      <template v-slot:startHour="{ row }">
+      <!-- <template v-slot:startHour="{ row }">
         <div class="media">
           <div class="media-left">
             <p class="icon-image-rounded has-background-primary">WS</p>
@@ -16,7 +16,7 @@
             <p class="subtitle is-6">@{{ row.createdBy }}</p>
           </div>
         </div>
-      </template>
+      </template> -->
     </sx-buefy-table>
 
   </div>
@@ -55,12 +55,12 @@ export default class WorkShopDayListComponent extends Mixins<
     modeLocation.customTemplate = false;
 
     let startHour = new BTableColumn("startHour", "Hora de inicio");
-    startHour.customTemplate = true;
-    startHour.type = BTableColumnType.Custom;
+    startHour.customTemplate = false;
+    startHour.type = BTableColumnType.Time;
 
     let endHour = new BTableColumn("endHour", "Hora de fin");
     endHour.customTemplate = false;
-    endHour.type = BTableColumnType.Custom;
+    endHour.type = BTableColumnType.Time;
 
     this.tableConfig.insertColumns(day, mode, modeLocation, startHour, endHour);
   }

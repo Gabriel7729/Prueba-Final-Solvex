@@ -7,6 +7,7 @@ import { CoreMixin } from './core.mixin';
 export class BaseFormAddMixin<T extends Base> extends Mixins(CoreMixin) {
     service!: BaseService<T>;
     model!: T;
+    id!: number;
     controller!: string;
     saving = false;
     exitOnSave = true;
@@ -66,7 +67,7 @@ export class BaseFormAddMixin<T extends Base> extends Mixins(CoreMixin) {
             hasIcon: true,
             confirmText: 'Salir',
             cancelText: 'No',
-            message: '¿Seguro que desea salir de la sección?',
+            message: '¿Desea salir del formulario?',
             onConfirm: () => this.confirmedCancel()
         })
 

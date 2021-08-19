@@ -67,43 +67,32 @@
                 </b-field>
               </div>
               <div class="column">
-                <!-- <b-field label="Hora de inicio*">
-                  <b-timepicker
-                    rounded
-                    v-model="model.startHour"
-                    name="startHour"
-                    placeholder="Requerido"
-                    data-vv-as="Hora de inicio"
-                    icon="clock"
-                  >
-                  </b-timepicker>
-                </b-field> -->
-
                 <b-field
                   label="Hora de inicio*"
                   :type="{ 'is-danger': errors.has('startHour') }"
                   :message="errors.first('startHour')"
                 >
-                  <b-input
+                  <b-clockpicker
+                    rounded
                     v-model="model.startHour"
                     name="startHour"
+                    placeholder="Requerido"
                     data-vv-as="Hora de inicio"
                     v-validate="'required'"
-                    placeholder="Requerido"
-                  />
+                    icon="clock"
+                  >
+                  </b-clockpicker>
                 </b-field>
 
-                <b-field
-                  label="Hora de fin"
-                >
-                  <b-timepicker
+                <b-field label="Hora de fin">
+                  <b-clockpicker
                     rounded
                     v-model="model.endHour"
                     name="endHour"
-                    placeholder="Requerido"
+                    placeholder="Opcional"
                     icon="clock"
                   >
-                  </b-timepicker>
+                  </b-clockpicker>
                 </b-field>
               </div>
             </div>
@@ -137,7 +126,7 @@
             role="button"
             aria-controls="contentIdForA11y3"
           >
-            <p class="card-header-title">Datos del WorkShopDay</p>
+            <p class="card-header-title">Datos del WorkShop</p>
             <a class="card-header-icon">
               <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
             </a>
@@ -149,12 +138,13 @@
             <div class="columns is-multiline">
               <div class="column">
                 <b-field
-                  label="Modo del WorkShop*"
-                  :type="{ 'is-danger': errors.has('workShopDayMode') }"
-                  :message="errors.first('workShopDayMode')"
+                  label="Seleccione el WorkShop*"
+                  :type="{ 'is-danger': errors.has('workShopId') }"
+                  :message="errors.first('workShopId')"
                 >
                   <b-select
                     expanded
+                    name="workShopId"
                     v-model="model.workShopId"
                     placeholder="Requerido"
                     data-vv-as="Modo del WorkShop"
@@ -219,24 +209,19 @@
 </template>
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import { BaseFormAddMixin } from "@/mixins";
+import { AuthMixin, BaseFormAddMixin } from "@/mixins";
 import { WorkShopDay } from "@/core/model/workshopday.model";
-import WorkShopSelectComponent from "@/components/auth/workShopSelect.vue";
 import axios from "axios";
 @Component({
   components: {
-    WorkShopSelectComponent,
   },
 })
 export default class WorkShopDayAddComponent extends Mixins<
   BaseFormAddMixin<WorkShopDay>
->(BaseFormAddMixin) {
-  hourFormat = undefined;
+>(BaseFormAddMixin, AuthMixin) {
+  hourFormat = undefined; // Browser locale
   enableSeconds = false;
   locale = undefined;
-
-  timespan = require('timespan');
-  ts = new this.timespan.TimeSpan(0,0,0,0,1);
 
   elements = [];
   async created() {
@@ -248,7 +233,7 @@ export default class WorkShopDayAddComponent extends Mixins<
     super();
     this.controller = "WorkShopDay";
     this.model = new WorkShopDay();
-    this.model.startHour = this.ts;
+    this.model.createdBy = this.$store.state.authModule.user.name;
   }
 }
 </script>

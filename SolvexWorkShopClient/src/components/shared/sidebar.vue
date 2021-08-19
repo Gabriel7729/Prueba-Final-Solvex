@@ -31,7 +31,7 @@
               icon="certificate"
               label="Mis talleres"
               tag="router-link"
-              :to="{ path: '/workshops' }"
+              :to="{ path: '/myworkshops' }"
             >
             </b-menu-item>
             <b-menu-item
@@ -57,6 +57,12 @@
                 label="WorkShopDay"
                 tag="router-link"
                 :to="{ path: '/admin/workshopday' }"
+              ></b-menu-item>
+              <b-menu-item
+                icon="account-group"
+                label="WorkShop Members"
+                tag="router-link"
+                :to="{ path: '/admin/workshopmember' }"
               ></b-menu-item>
             </b-menu-item>
             <b-menu-item

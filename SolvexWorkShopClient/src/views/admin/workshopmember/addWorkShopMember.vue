@@ -1,0 +1,146 @@
+<template>
+  <section>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <span class="navbar-item title is-2">Agregar miembros al WorkShop</span>
+      </div>
+    </nav>
+
+    <form @submit.prevent="validate">
+      <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
+        <template #trigger="props">
+          <div
+            class="card-header"
+            role="button"
+            aria-controls="contentIdForA11y3"
+          >
+            <p class="card-header-title">Datos del miembro del WorkShop</p>
+            <a class="card-header-icon">
+              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
+            </a>
+          </div>
+        </template>
+
+        <div class="card-content">
+          <div class="content">
+            <div class="columns is-multiline">
+              <div class="column">
+
+                <b-field
+                  label="Rol del miembro*"
+                  :type="{ 'is-danger': errors.has('role') }"
+                  :message="errors.first('role')"
+                >
+                  <b-select
+                    expanded
+                    v-model="model.role"
+                    placeholder="Requerido"
+                    name="role"
+                    data-vv-as="Rol del miembro"
+                    v-validate="'required'"
+                  >
+                    <option :value="0">Estudiante</option>
+                    <option :value="1">Profesor</option>
+                  </b-select>
+                </b-field>
+              </div>
+              <div class="column">
+                  <b-field
+                  label="Seleccione el usuario*"
+                  :type="{ 'is-danger': errors.has('userId') }"
+                  :message="errors.first('userId')"
+                >
+                  <b-select
+                    expanded
+                    name="userId"
+                    v-model="model.userId"
+                    placeholder="Requerido"
+                    data-vv-as="Usuario"
+                    v-validate="'required'"
+                  >
+                    <option
+                      v-for="data2 in users"
+                      :key="data2.id"
+                      :value="data2.id"
+                    >
+                      {{ data2.name }} {{data2.lastName}}
+                    </option>
+                  </b-select>
+                </b-field>
+                </div>
+            </div>
+          </div>
+        </div>
+      </b-collapse>
+      <br />
+
+      <nav class="level">
+        <!-- Left side -->
+        <div class="level-left">
+          <p class="level-item">
+            <b-button
+              :disabled="(modelDoNotChange && !errors.any()) || saving"
+              type="is-light"
+              @click="clean"
+              icon-right="eraser"
+              >Reiniciar</b-button
+            >
+          </p>
+          <p class="level-item">
+            <b-button
+              type="is-danger"
+              :disabled="saving"
+              @click="cancel"
+              icon-right="cancel"
+              >Cancelar</b-button
+            >
+          </p>
+        </div>
+
+        <!-- Right side -->
+        <div class="level-right">
+          <p class="level-item">
+            <b-button
+              type="is-primary"
+              native-type="submit"
+              :disabled="errors.any()"
+              :loading="saving"
+              icon-right="content-save"
+              >Guardar</b-button
+            >
+          </p>
+        </div>
+      </nav>
+    </form>
+  </section>
+</template>
+<script lang="ts">
+import { Component, Mixins } from "vue-property-decorator";
+import { AuthMixin, BaseFormAddMixin } from "@/mixins";
+import axios from "axios";
+import { WorkShopMember } from "@/core/model";
+@Component({
+  components: {
+  },
+})
+export default class WorkShopMemberAddComponent extends Mixins<
+  BaseFormAddMixin<WorkShopMember>
+>(BaseFormAddMixin, AuthMixin) {
+  users = [];
+  async created() {
+    const resUsers = await axios.get("https://localhost:5001/api/user");
+    this.users = resUsers.data;
+  }
+
+  constructor() {
+    super();
+    this.controller = "WorkShopMember";
+    this.model = new WorkShopMember();
+    this.model.workShopId = parseInt(this.$route.params.id);
+    this.model.createdBy = this.$store.state.authModule.user.name;
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+</style>

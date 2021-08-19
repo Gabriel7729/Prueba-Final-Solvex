@@ -1,7 +1,7 @@
 import { RouteConfig } from "vue-router";
 const item = {
   path: "/admin/workshops",
-  name:"WorkShops",
+  name: "WorkShops",
   component: () => import("../views/base.vue"),
   children: [
     {
@@ -13,9 +13,9 @@ const item = {
       component: () => import("../views/admin/workshops/addWorkshop.vue")
     },
     {
-        path: "edit/:id",
-        component: () => import("../views/admin/workshops/editWorkshop.vue")
-      }
+      path: "edit/:id",
+      component: () => import("../views/admin/workshops/editWorkshop.vue")
+    }
   ],
 } as RouteConfig;
 

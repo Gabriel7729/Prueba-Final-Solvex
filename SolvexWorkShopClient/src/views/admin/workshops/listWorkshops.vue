@@ -1,11 +1,12 @@
 <template>
   <div>
-
     <sx-buefy-table :config="tableConfig">
       <template v-slot:name="{ row }">
         <div class="media">
           <div class="media-left">
-            <p class="icon-image-rounded has-background-primary">WS</p>
+            <p class="icon-image-rounded has-background-primary">
+              {{ formatSignature(row.name) }}
+            </p>
           </div>
           <div class="media-content">
             <p class="title is-6">
@@ -13,12 +14,21 @@
                 <a class="has-text-link cursor-ban">{{ row.name }}</a>
               </b-tooltip>
             </p>
-            <p class="subtitle is-6">@{{ row.createdBy }}</p>
+            
           </div>
         </div>
       </template>
-    </sx-buefy-table>
 
+      <template v-slot:addMembers="{ row }">
+        <b-button @click="addMember(row.id)" type="is-ghost" >
+              <b-icon 
+              icon="account-group" 
+              size="is-medium">
+              </b-icon>
+            </b-button>
+      </template>
+
+    </sx-buefy-table>
   </div>
 </template>
 <script lang="ts">
@@ -33,6 +43,11 @@ import { WorkShop } from "@/core/model";
 export default class WorkShopListComponent extends Mixins<
   SxBuefyTableMixin<WorkShop>
 >(SxBuefyTableMixin, AuthMixin) {
+  formatSignature(element: string) {
+    var element =
+      element.split(" ")[0].charAt(0) + "" + element.split(" ")[1].charAt(0);
+    return element;
+  }
   created() {
     this.setTableConfig();
     this.formatColumns();
@@ -52,16 +67,23 @@ export default class WorkShopListComponent extends Mixins<
 
     let startDate = new BTableColumn("startDate", "Fecha de inicio");
     startDate.customTemplate = false;
-    startDate.type = BTableColumnType.DateTime;
+    startDate.type = BTableColumnType.Date;
 
     let endDate = new BTableColumn("endDate", "Fecha de fin");
     endDate.customTemplate = false;
-    endDate.type = BTableColumnType.DateTime;
+    endDate.type = BTableColumnType.Date;
 
     let contentSupport = new BTableColumn("contentSupport", "Contenido de apoyo");
     contentSupport.customTemplate = false;
 
-    this.tableConfig.insertColumns(name, description, startDate, endDate, contentSupport);
+    let addMembers = new BTableColumn("addMembers", "Añadir miembro");
+    addMembers.sortable = false;
+    addMembers.customTemplate = true;
+
+    this.tableConfig.insertColumns(name, description, startDate, endDate, contentSupport,addMembers);
+  }
+  addMember(id: number) {
+    this.$router.push(`/admin/workshopmember/add/${id}`);
   }
 }
 </script>
