@@ -219,9 +219,6 @@ import axios from "axios";
 export default class WorkShopDayAddComponent extends Mixins<
   BaseFormAddMixin<WorkShopDay>
 >(BaseFormAddMixin, AuthMixin) {
-  hourFormat = undefined; // Browser locale
-  enableSeconds = false;
-  locale = undefined;
 
   elements = [];
   async created() {

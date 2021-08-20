@@ -12,7 +12,7 @@
               </div>
               <div class="media-content">
                 <p class="title is-4">{{ element.name }}</p>
-                <p class="subtitle is-6">@{{ element.createdBy }}</p>
+                <p class="subtitle is-6"><strong>Creado por:</strong> {{ element.createdBy }}</p>
               </div>
             </div>
 

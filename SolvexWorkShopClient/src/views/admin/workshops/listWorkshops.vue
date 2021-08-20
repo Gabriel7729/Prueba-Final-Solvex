@@ -19,10 +19,16 @@
         </div>
       </template>
 
-      <template v-slot:addMembers="{ row }">
+      <template v-slot:extras="{ row }">
         <b-button @click="addMember(row.id)" type="is-ghost" >
               <b-icon 
               icon="account-group" 
+              size="is-medium">
+              </b-icon>
+            </b-button>
+            <b-button @click="viewDetailsOfWorkShop(row.id)" type="is-ghost" >
+              <b-icon 
+              icon="file-find" 
               size="is-medium">
               </b-icon>
             </b-button>
@@ -76,14 +82,17 @@ export default class WorkShopListComponent extends Mixins<
     let contentSupport = new BTableColumn("contentSupport", "Contenido de apoyo");
     contentSupport.customTemplate = false;
 
-    let addMembers = new BTableColumn("addMembers", "Añadir miembro");
-    addMembers.sortable = false;
-    addMembers.customTemplate = true;
+    let extras = new BTableColumn("extras", "Extras");
+    extras.sortable = false;
+    extras.customTemplate = true;
 
-    this.tableConfig.insertColumns(name, description, startDate, endDate, contentSupport,addMembers);
+    this.tableConfig.insertColumns(name, description, startDate, endDate, contentSupport,extras);
   }
   addMember(id: number) {
     this.$router.push(`/admin/workshopmember/add/${id}`);
+  }
+  viewDetailsOfWorkShop(id: number) {
+    this.$router.push(`/admin/workshops/view/${id}`);
   }
 }
 </script>

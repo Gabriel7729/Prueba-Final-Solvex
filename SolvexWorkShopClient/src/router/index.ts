@@ -20,6 +20,11 @@ const routes: Array<RouteConfig> = [
     name: 'myworkshops',
     component: () => import('../views/myWorkShops.vue')
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/profile.vue')
+  },
   User,
   WorkShops,
   WorkShopDay,

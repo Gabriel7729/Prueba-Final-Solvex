@@ -2,21 +2,16 @@
   <div>
 
     <sx-buefy-table :config="tableConfig">
-      <!-- <template v-slot:startHour="{ row }">
+      <template v-slot:workShopId="{ row }">
         <div class="media">
           <div class="media-left">
-            <p class="icon-image-rounded has-background-primary">WS</p>
+            <p class="icon-image-rounded has-background-primary"></p>
           </div>
           <div class="media-content">
-            <p class="title is-6">
-              <b-tooltip label="Perfil no disponible">
-                <a class="has-text-link cursor-ban">{{ row }}</a>
-              </b-tooltip>
-            </p>
-            <p class="subtitle is-6">@{{ row.createdBy }}</p>
+             {{created1(row.workShopId)}}
           </div>
         </div>
-      </template> -->
+      </template>
     </sx-buefy-table>
 
   </div>
@@ -28,11 +23,28 @@ import { BTableColumn } from "@/components/sx/sx-buefy-table/config";
 import Helpers from "@/core/utils/helpers";
 import { BTableColumnType, WeekDay, WorkShopDayMode } from "@/core/utils/enums";
 import { WorkShopDay } from "@/core/model/workshopday.model";
+import axios from "axios";
 
 @Component
 export default class WorkShopDayListComponent extends Mixins<
   SxBuefyTableMixin<WorkShopDay>
 >(SxBuefyTableMixin, AuthMixin) {
+
+  workshop = [];
+  workshopName = '';
+  async created1(id: number){
+    const res = await axios.get("https://localhost:5001/api/workshop/" + id);
+  console.log(res.data.name);
+    return res.data.name;
+  }
+
+
+  formatSignature(element: string) {
+    var element =
+      element.split(" ")[0].charAt(0) + "" + element.split(" ")[1].charAt(0);
+    return element;
+  }
+
   created() {
     this.setTableConfig();
     this.formatColumns();
@@ -43,6 +55,9 @@ export default class WorkShopDayListComponent extends Mixins<
     this.tableConfig.aggregating.title = "Listado de WorkShopDays";
   }
   formatColumns() {
+    let workShopId = new BTableColumn("workShopId", "WorkShop");
+    workShopId.customTemplate = true;
+
     let day = new BTableColumn("day", "Día");
     day.type = BTableColumnType.Custom;
     day.customFilter = (value: WeekDay) => Helpers.Filters.WeekDay(value);
@@ -62,7 +77,7 @@ export default class WorkShopDayListComponent extends Mixins<
     endHour.customTemplate = false;
     endHour.type = BTableColumnType.Time;
 
-    this.tableConfig.insertColumns(day, mode, modeLocation, startHour, endHour);
+    this.tableConfig.insertColumns(workShopId, day, mode, modeLocation, startHour, endHour);
   }
 }
 </script>
