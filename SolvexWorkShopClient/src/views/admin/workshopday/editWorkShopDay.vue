@@ -67,23 +67,6 @@
                 </b-field>
               </div>
               <div class="column">
-                <!-- <b-field
-                  label="Hora de inicio*"
-                  :type="{ 'is-danger': errors.has('startHour') }"
-                  :message="errors.first('startHour')"
-                >
-                  <b-timepicker
-                    rounded
-                    v-model="model.startHour"
-                    name="startHour"
-                    placeholder="Requerido"
-                    data-vv-as="Hora de inicio"
-                    v-validate="'required'"
-                    icon="clock"
-                  >
-                  </b-timepicker>
-                </b-field> -->
-
                 <b-field
                   label="Hora de inicio*"
                   :type="{ 'is-danger': errors.has('startHour') }"
@@ -112,16 +95,6 @@
                   </b-clockpicker>
                 </b-field>
 
-                <!-- <b-field label="Hora de fin">
-                  <b-timepicker
-                    rounded
-                    v-model="model.endHour"
-                    name="endHour"
-                    placeholder="Opcional"
-                    icon="clock"
-                  >
-                  </b-timepicker>
-                </b-field> -->
               </div>
             </div>
             <div class="colums">

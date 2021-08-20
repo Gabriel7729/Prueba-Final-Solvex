@@ -2,7 +2,7 @@
   <section>
     <nav class="navbar">
       <div class="navbar-brand">
-        <span class="navbar-item title is-2">Agregar miembros al WorkShop</span>
+        <span class="navbar-item title is-2">Editar miembro del workshop</span>
       </div>
     </nav>
 

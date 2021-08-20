@@ -131,9 +131,15 @@
                               <p class="subtitle is-6">
                                 @{{ WorkShopMemberRole(data.role) }}
                               </p>
-                              <footer class="card-footer">
-                                <a href="#" class="card-footer-item">Edit</a>
-                                <a href="#" class="card-footer-item">Delete</a>
+                              <footer style="justify-content:center; padding-top:10px;" class="card-footer">
+
+                                <b-button 
+                                @click="editMember(data.id)" 
+                                type="is-primary" 
+                                outlined>
+                                Editar
+                                </b-button>
+
                               </footer>
                             </div>
                           </div>
@@ -266,6 +272,11 @@ export default class WorkShopViewComponent extends Mixins<
       this.loading = false;
     }
   }
+
+  editMember(id: number) {
+    this.$router.push(`/admin/workshopmember/edit/${id}`);
+  }
+
 }
 </script>
 
