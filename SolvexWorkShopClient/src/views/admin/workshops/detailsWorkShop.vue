@@ -118,36 +118,46 @@
         <div class="content">
           <div class="columns">
             <div v-for="data in workShopMember" :key="data.id">
-                <div v-if="data.workShopId === idWorkShop">
-                  <div v-for="dataUser in users" :key="dataUser.id">
-                    <div v-if="dataUser.id === data.userId">
-                      <div class="column">
-                        <div class="card">
-                          <div class="card-content">
-                            <div class="media-content">
-                              <p class="title is-4">
-                                {{ dataUser.name }} {{ dataUser.lastName }}
-                              </p>
-                              <p class="subtitle is-6">
-                                @{{ WorkShopMemberRole(data.role) }}
-                              </p>
-                              <footer style="justify-content:center; padding-top:10px;" class="card-footer">
-
-                                <b-button 
-                                @click="editMember(data.id)" 
-                                type="is-primary" 
-                                outlined>
+              <div v-if="data.workShopId === idWorkShop">
+                <div v-for="dataUser in users" :key="dataUser.id">
+                  <div v-if="dataUser.id === data.userId">
+                    <div class="column">
+                      <div class="card">
+                        <div class="card-content">
+                          <div class="media-content">
+                            <p class="title is-4">
+                              {{ dataUser.name }} {{ dataUser.lastName }}
+                            </p>
+                            <p class="subtitle is-6">
+                              @{{ WorkShopMemberRole(data.role) }}
+                            </p>
+                            <footer
+                              style="justify-content: center; padding-top: 10px"
+                              class="card-footer"
+                            >
+                              <b-button
+                                @click="editMember(data.id)"
+                                type="is-primary"
+                                outlined
+                              >
                                 Editar
-                                </b-button>
+                              </b-button>
 
-                              </footer>
-                            </div>
+                              <b-button
+                                @click="deleteMember(data.id)"
+                                type="is-danger"
+                                outlined
+                              >
+                                Eliminar
+                              </b-button>
+                            </footer>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -175,8 +185,9 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import { BaseFormEditMixin } from "@/mixins";
-import { WorkShop } from "@/core/model";
+import { WorkShop, WorkShopMember } from "@/core/model";
 import axios from "axios";
+import { WorkShopMemberService } from "@/core/services";
 
 @Component({
   components: {},
@@ -185,6 +196,13 @@ export default class WorkShopViewComponent extends Mixins<
   BaseFormEditMixin<WorkShop>
 >(BaseFormEditMixin) {
   idWorkShop? = 0;
+
+  serviceMember = new WorkShopMemberService("WorkShopMember");
+
+  async deleteMember(userId: number){
+    await this.serviceMember.delete(userId);
+    location.reload();
+  }
 
   constructor() {
     super();
@@ -276,7 +294,6 @@ export default class WorkShopViewComponent extends Mixins<
   editMember(id: number) {
     this.$router.push(`/admin/workshopmember/edit/${id}`);
   }
-
 }
 </script>
 

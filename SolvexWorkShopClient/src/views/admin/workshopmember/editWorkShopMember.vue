@@ -25,7 +25,6 @@
           <div class="content">
             <div class="columns is-multiline">
               <div class="column">
-
                 <b-field
                   label="Rol del miembro*"
                   :type="{ 'is-danger': errors.has('role') }"
@@ -45,7 +44,7 @@
                 </b-field>
               </div>
               <div class="column">
-                  <b-field
+                <b-field
                   label="Seleccione el usuario*"
                   :type="{ 'is-danger': errors.has('userId') }"
                   :message="errors.first('userId')"
@@ -63,11 +62,11 @@
                       :key="data2.id"
                       :value="data2.id"
                     >
-                      {{ data2.name }} {{data2.lastName}}
+                      {{ data2.name }} {{ data2.lastName }}
                     </option>
                   </b-select>
                 </b-field>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -88,11 +87,11 @@
           </p>
           <p class="level-item">
             <b-button
-              type="is-danger"
-              :disabled="saving"
-              @click="cancel"
-              icon-right="cancel"
-              >Cancelar</b-button
+              size="is-medium"
+              type="is-warning"
+              @click="backToList()"
+              icon-left="arrow-left-circle"
+              >Volver atrás</b-button
             >
           </p>
         </div>
@@ -130,6 +129,10 @@ export default class WorkShopMemberEditComponent extends Mixins<
   async created() {
     const resUsers = await axios.get("https://localhost:5001/api/user");
     this.users = resUsers.data;
+  }
+
+  backToList() {
+    this.$router.push(`/admin/workshops/`);
   }
 
   constructor() {
